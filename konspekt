@@ -1,0 +1,746 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOJgahHyCNP92bo09h2u/dC",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/dadepchik/dz/blob/main/konspekt\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "\n",
+        "## 1. Базовые структуры данных (ООП)\n",
+        "\n",
+        "В Python эти структуры часто реализуются через классы. Основные операции всех трёх структур выполняются за $O(1)$ при правильной реализации.\n",
+        "\n",
+        "### Стек (Stack)\n",
+        "*   **Принцип:** LIFO (Last-In-First-Out) — «последним вошёл, первым вышел».\n",
+        "*   **Основные операции:**\n",
+        "    *   `push(x)` — добавить на вершину.\n",
+        "        *   `pop()` — удалить и вернуть верхний элемент.\n",
+        "            *   `peek()` — посмотреть верхний элемент без удаления.\n",
+        "                *   `is_empty()` — проверка на пустоту.\n",
+        "                *   **Реализация в Python:**\n",
+        "                ```python\n",
+        "                class Stack:\n",
+        "                    def __init__(self):\n",
+        "                            self.items = []\n",
+        "                                def push(self, item):\n",
+        "                                        self.items.append(item)\n",
+        "                                            def pop(self):\n",
+        "                                                    if not self.is_empty():\n",
+        "                                                                return self.items.pop()\n",
+        "                                                                        raise IndexError(\"pop from empty stack\")\n",
+        "                                                                            def peek(self):\n",
+        "                                                                                    if not self.is_empty():\n",
+        "                                                                                                return self.items[-1]\n",
+        "                                                                                                        raise IndexError(\"peek from empty stack\")\n",
+        "                                                                                                            def is_empty(self):\n",
+        "                                                                                                                    return len(self.items) == 0\n",
+        "                                                                                                                        def size(self):\n",
+        "                                                                                                                                return len(self.items)\n",
+        "                                                                                                                                Очередь (Queue)\n",
+        "                                                                                                                                Принцип: FIFO (First-In-First-Out) — «первым вошёл, первым вышел».\n",
+        "\n",
+        "                                                                                                                                Основные операции:\n",
+        "\n",
+        "                                                                                                                                enqueue(x) — добавить в конец.\n",
+        "\n",
+        "                                                                                                                                dequeue() — удалить и вернуть первый элемент.\n",
+        "\n",
+        "                                                                                                                                front() — посмотреть первый элемент.\n",
+        "\n",
+        "                                                                                                                                is_empty() — проверка на пустоту.\n",
+        "\n",
+        "                                                                                                                                Реализация в Python:"
+      ],
+      "metadata": {
+        "id": "8xrYcGv-9a0n"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class Queue:\n",
+        "    def __init__(self):\n",
+        "        self.items = []\n",
+        "\n",
+        "    def enqueue(self, item):\n",
+        "        self.items.append(item)\n",
+        "\n",
+        "    def dequeue(self):\n",
+        "        if not self.is_empty():\n",
+        "            return self.items.pop(0)\n",
+        "        raise IndexError(\"dequeue from empty queue\")\n",
+        "\n",
+        "    def front(self):\n",
+        "        if not self.is_empty():\n",
+        "            return self.items[0]\n",
+        "        raise IndexError(\"front from empty queue\")\n",
+        "\n",
+        "    def is_empty(self):\n",
+        "        return len(self.items) == 0\n",
+        "\n",
+        "    def size(self):\n",
+        "        return len(self.items)"
+      ],
+      "metadata": {
+        "id": "do7MXU4R92Ed"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Дек (Deque — Double Ended Queue)\n",
+        "Принцип: Двусторонняя очередь. Позволяет добавлять и удалять элементы с обоих концов.\n",
+        "\n",
+        "Основные операции:\n",
+        "\n",
+        "add_front(x), add_rear(x) — добавление в начало/конец.\n",
+        "\n",
+        "remove_front(), remove_rear() — удаление из начала/конца.\n",
+        "\n",
+        "peek_front(), peek_rear() — просмотр.\n",
+        "\n",
+        "Реализация в Python:"
+      ],
+      "metadata": {
+        "id": "VHxo4xos-Iv3"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class Deque:\n",
+        "    def __init__(self):\n",
+        "        self.items = []\n",
+        "\n",
+        "    def add_front(self, item):\n",
+        "        self.items.insert(0, item)\n",
+        "\n",
+        "    def add_rear(self, item):\n",
+        "        self.items.append(item)\n",
+        "\n",
+        "    def remove_front(self):\n",
+        "        if not self.is_empty():\n",
+        "            return self.items.pop(0)\n",
+        "        raise IndexError(\"remove_front from empty deque\")\n",
+        "\n",
+        "    def remove_rear(self):\n",
+        "        if not self.is_empty():\n",
+        "            return self.items.pop()\n",
+        "        raise IndexError(\"remove_rear from empty deque\")\n",
+        "\n",
+        "    def is_empty(self):\n",
+        "        return len(self.items) == 0"
+      ],
+      "metadata": {
+        "id": "hpsVZlzk-Q15"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "2. Функции: продвинутые возможности\n",
+        "Функции от произвольного количества аргументов\n",
+        "*args — передача неопределенного числа неименованных аргументов (кортеж)"
+      ],
+      "metadata": {
+        "id": "GKZVaxT--tIx"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def function(*args):\n",
+        "    for i in args:\n",
+        "        print(i)\n",
+        "\n",
+        "function(1, 2, 3, 4)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HeAXGl_Y-5Br",
+        "outputId": "8dbc2ba9-eee8-4b7c-e5e5-31e15839fb28"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1\n",
+            "2\n",
+            "3\n",
+            "4\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**kwargs — передача неопределенного числа именованных аргументов (словарь)"
+      ],
+      "metadata": {
+        "id": "zPFE2Pza-9ZC"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def function(**kwargs):\n",
+        "    for name, value in kwargs.items():\n",
+        "        print(f'{name} = {value}')\n",
+        "\n",
+        "function(a=1, b=2, c=3)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "rYL_im6l-_Z1",
+        "outputId": "27047810-f460-486d-a847-62e072183329"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "a = 1\n",
+            "b = 2\n",
+            "c = 3\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Порядок: def function(*args, **kwargs):. Нельзя ставить **kwargs до *args.\n",
+        "\n",
+        "Функции как объекты (объекты первого класса)\n",
+        "В Python функции являются объектами. Их можно передавать как аргументы, возвращать из других функций и хранить в переменных.\n",
+        "\n",
+        "Передача функции как аргумента:"
+      ],
+      "metadata": {
+        "id": "BXzzEn10_SHG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def apply_function(numbers, function):\n",
+        "    return [function(n) for n in numbers]\n",
+        "\n",
+        "def square(number):\n",
+        "    return number ** 2\n",
+        "\n",
+        "print(apply_function([1, 2, 3], square))  # [1, 4, 9]"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mgahPqty_j2l",
+        "outputId": "df8c0353-c3d0-4a4b-d81d-63d14371fc2c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[1, 4, 9]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Возврат функции из функции:"
+      ],
+      "metadata": {
+        "id": "PGN6nlS__pep"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def make_multiplier(n):\n",
+        "    def multiplier(x):\n",
+        "        return x * n\n",
+        "    return multiplier\n",
+        "\n",
+        "times_2 = make_multiplier(2)\n",
+        "print(times_2(5))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "G0wxjj2C_srT",
+        "outputId": "78719f13-95a2-42b9-bc21-a592a4b4729c"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "10\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "3. Декораторы\n",
+        "Декоратор — это «обёртка», которая позволяет изменить поведение функции, не изменяя её исходный код.\n",
+        "\n",
+        "Базовый пример"
+      ],
+      "metadata": {
+        "id": "JDsHgxEYAbwD"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def my_decorator(function_to_decorate):\n",
+        "    def wrapper():\n",
+        "        print(\"Код до вызова функции\")\n",
+        "        function_to_decorate()\n",
+        "        print(\"Код после вызова\")\n",
+        "    return wrapper\n",
+        "\n",
+        "def alone_function():\n",
+        "    print(\"Я простая функция\")\n",
+        "\n",
+        "\n",
+        "function_decorated = my_decorator(alone_function)\n",
+        "function_decorated()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "08aFTOv3Ah67",
+        "outputId": "f1fac2d1-e2a9-4c0d-aa35-8266caaf6286"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Код до вызова функции\n",
+            "Я простая функция\n",
+            "Код после вызова\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Декораторы для методов\n",
+        "Методы — это те же функции, но первым аргументом принимают self."
+      ],
+      "metadata": {
+        "id": "E-2plPgFBIyY"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def method_friendly_decorator(method_to_decorate):\n",
+        "    def wrapper(self, lie):\n",
+        "        lie -= 3\n",
+        "        return method_to_decorate(self, lie)\n",
+        "    return wrapper\n",
+        "\n",
+        "class Lucy:\n",
+        "    def __init__(self):\n",
+        "        self.age = 32\n",
+        "\n",
+        "    @method_friendly_decorator\n",
+        "    def sayYourAge(self, lie):\n",
+        "        print(f\"Мне {self.age + lie} лет\")\n",
+        "\n",
+        "l = Lucy()\n",
+        "l.sayYourAge(-3)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "D60QBa9SBQJ0",
+        "outputId": "691305fb-bf53-41c0-dce4-80435d0e41f6"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Мне 26 лет\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Универсальные декораторы (с *args и **kwargs)\n",
+        "Чтобы декоратор работал с любыми функциями, «обёртка» должна принимать любые аргументы:\n"
+      ],
+      "metadata": {
+        "id": "-bs78dASDDuj"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def a_decorator_passing_arbitrary_arguments(function_to_decorate):\n",
+        "    def a_wrapper_accepting_arbitrary_arguments(*args, **kwargs):\n",
+        "        print(f\"Передали: {args} {kwargs}\")\n",
+        "        function_to_decorate(*args, **kwargs)\n",
+        "    return a_wrapper_accepting_arbitrary_arguments\n",
+        "\n",
+        "@a_decorator_passing_arbitrary_arguments\n",
+        "def function_with_arguments(a, b, c):\n",
+        "    print(a, b, c)\n",
+        "\n",
+        "function_with_arguments(1, 2, 3)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "bWgQ7SYjDQiR",
+        "outputId": "6894352c-b40a-4950-88eb-09a9bc9725eb"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Передали: (1, 2, 3) {}\n",
+            "1 2 3\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "4. Асимптотика алгоритмов\n",
+        "Асимптотический анализ оценивает производительность алгоритма в зависимости от размера входных данных (\n",
+        "n\n",
+        "n). Мы вычисляем порядок роста времени (или памяти).\n",
+        "\n",
+        "Основные классы сложности\n",
+        "Константная\n",
+        "O\n",
+        "(\n",
+        "1\n",
+        ")\n",
+        "O(1): Время выполнения не зависит от размера входных данных. Нет циклов и рекурсий. Пример: доступ к элементу массива по индексу."
+      ],
+      "metadata": {
+        "id": "uqyRWopODfBl"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "c = 10\n",
+        "for i in range(1, c+1):\n",
+        "    pass"
+      ],
+      "metadata": {
+        "id": "b6za_FgjDjRd"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Линейная\n",
+        "O\n",
+        "(\n",
+        "n\n",
+        ")\n",
+        "O(n): Время выполнения растёт линейно с размером входных данных. Один цикл."
+      ],
+      "metadata": {
+        "id": "XDDyllnUEPcM"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "n = 10\n",
+        "for i in range(1, n+1):\n",
+        "    pass"
+      ],
+      "metadata": {
+        "id": "L_dKFWzhEV96"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Квадратичная\n",
+        "O\n",
+        "(\n",
+        "n\n",
+        "2\n",
+        ")\n",
+        "O(n\n",
+        "2\n",
+        " ): Время выполнения растёт пропорционально квадрату размера. Вложенные циклы"
+      ],
+      "metadata": {
+        "id": "2FL8MEYiEeCd"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for i in range(1, n+1):\n",
+        "      for j in range(1, n+1):\n",
+        "              pass"
+      ],
+      "metadata": {
+        "id": "9MEULbGBEkPV"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Логарифмическая\n",
+        "O\n",
+        "(\n",
+        "log\n",
+        "⁡\n",
+        "n\n",
+        ")\n",
+        "O(logn): Переменная цикла делится/умножается на константу. Пример: бинарный поиск."
+      ],
+      "metadata": {
+        "id": "5gtxqu6AEvD3"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "i = 1\n",
+        "while i <= n:\n",
+        "    i = i * c"
+      ],
+      "metadata": {
+        "id": "JzDBVwwdEyIs"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Логарифмически-логарифмическая\n",
+        "O\n",
+        "(\n",
+        "log\n",
+        "⁡\n",
+        "(\n",
+        "log\n",
+        "⁡\n",
+        "n\n",
+        ")\n",
+        ")\n",
+        "O(log(logn)): Переменная цикла уменьшается экспоненциально"
+      ],
+      "metadata": {
+        "id": "bHQ73ksBE3Qz"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "i = 2\n",
+        "while i <= n:\n",
+        "    i = i ** c"
+      ],
+      "metadata": {
+        "id": "06yWIuz9E6Mz"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "5. Простые сортировки\n",
+        "Случайная сортировка (BogoSort)\n",
+        "Принцип: Проверяем, отсортирован ли массив. Если нет — перемешиваем и повторяем.\n",
+        "\n",
+        "Сложность: В среднем\n",
+        "O\n",
+        "(\n",
+        "n\n",
+        "⋅\n",
+        "n\n",
+        "!\n",
+        ")\n",
+        "O(n⋅n!), в худшем — бесконечное время.\n",
+        "\n",
+        "Сортировка пузырьком (Bubble Sort)\n",
+        "Принцип: Многократный проход по массиву, сравнение соседних элементов и их обмен, если они в неверном порядке. Максимальный элемент «всплывает» в конец.\n",
+        "\n",
+        "Оптимизации:\n",
+        "\n",
+        "Если за полный проход не было обменов — массив отсортирован (ранний выход).\n",
+        "После каждого прохода можно не проверять последние\n",
+        "i\n",
+        "i элементов.\n",
+        "Сложность:\n",
+        "\n",
+        "Лучший случай:\n",
+        "O\n",
+        "(\n",
+        "n\n",
+        ")\n",
+        "O(n) (массив уже отсортирован).\n",
+        "\n",
+        "Средний и худший:\n",
+        "O\n",
+        "(\n",
+        "n\n",
+        "2\n",
+        ")\n",
+        "O(n\n",
+        "2\n",
+        " ).\n",
+        "\n",
+        " Память:\n",
+        " O\n",
+        " (\n",
+        " 1\n",
+        " )\n",
+        " O(1).\n",
+        "\n",
+        " Устойчивость: Да."
+      ],
+      "metadata": {
+        "id": "-OnnxoXSFJXd"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Сортировка выбором (Selection Sort)\n",
+        "Принцип: Находим минимальный элемент в неотсортированной части и меняем его местами с первым элементом этой части.\n",
+        "\n",
+        "Сложность:\n",
+        "\n",
+        "Все случаи (лучший, средний, худший):\n",
+        "O\n",
+        "(\n",
+        "n\n",
+        "2\n",
+        ")\n",
+        "O(n\n",
+        "2\n",
+        " ).\n",
+        "\n",
+        " Память:\n",
+        " O\n",
+        " (\n",
+        " 1\n",
+        " )\n",
+        " O(1).\n",
+        "\n",
+        " Устойчивость: Нет (может менять порядок равных элементов).\n",
+        "\n",
+        " Сортировка вставками (Insertion Sort)\n",
+        " Принцип: Проходим слева направо, каждый следующий элемент «вставляем» в уже отсортированную левую часть, сдвигая большие элементы вправо.\n",
+        "\n",
+        " Сложность:\n",
+        "\n",
+        " Лучший случай:\n",
+        " O\n",
+        " (\n",
+        " n\n",
+        " )\n",
+        " O(n) (массив уже отсортирован).\n",
+        "\n",
+        " Средний и худший:\n",
+        " O\n",
+        " (\n",
+        " n\n",
+        " 2\n",
+        " )\n",
+        " O(n\n",
+        " 2\n",
+        "  ).\n",
+        "\n",
+        "  Память:\n",
+        "  O\n",
+        "  (\n",
+        "  1\n",
+        "  )\n",
+        "  O(1).\n",
+        "\n",
+        "  Устойчивость: Да.\n",
+        "\n",
+        "  Устойчивость сортировок\n",
+        "  Устойчивая сортировка — это сортировка, которая не меняет порядка объектов с одинаковыми ключами.\n",
+        "\n",
+        "  Пример: [2:'ca', 1:'b', 2:'ab', 1:'a'] после устойчивой сортировки станет [1:'b', 1:'a', 2:'ca', 2:'ab']."
+      ],
+      "metadata": {
+        "id": "3GP1E1vkFScP"
+      }
+    }
+  ]
+}
